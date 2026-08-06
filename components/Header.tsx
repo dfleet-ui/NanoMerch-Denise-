@@ -1,13 +1,14 @@
 import React from 'react';
-import { Zap, LayoutTemplate } from 'lucide-react';
+import { Zap, LayoutTemplate, Rocket } from 'lucide-react';
 import { Button } from './Button';
 
 interface HeaderProps {
   storyboardCount?: number;
   onOpenStoryboard?: () => void;
+  onOpenPolsia?: () => void;
 }
 
-export const Header: React.FC<HeaderProps> = ({ storyboardCount = 0, onOpenStoryboard }) => {
+export const Header: React.FC<HeaderProps> = ({ storyboardCount = 0, onOpenStoryboard, onOpenPolsia }) => {
   return (
     <header className="sticky top-0 z-50 border-b border-white/10 bg-black/50 backdrop-blur-xl">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -26,10 +27,21 @@ export const Header: React.FC<HeaderProps> = ({ storyboardCount = 0, onOpenStory
               Powered by Gemini 2.5 Flash Image
             </div>
             
+            {onOpenPolsia && (
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={onOpenPolsia}
+                icon={<Rocket className="w-4 h-4" />}
+              >
+                CoFounder
+              </Button>
+            )}
+
             {onOpenStoryboard && (
-              <Button 
-                variant="outline" 
-                size="sm" 
+              <Button
+                variant="outline"
+                size="sm"
                 onClick={onOpenStoryboard}
                 className="relative"
                 icon={<LayoutTemplate className="w-4 h-4" />}
