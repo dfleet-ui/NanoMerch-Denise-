@@ -4,6 +4,7 @@ import { UploadZone } from './components/UploadZone';
 import { ImagePreview } from './components/ImagePreview';
 import { Button } from './components/Button';
 import { StoryboardView } from './components/StoryboardView';
+import { PolsiaApp } from './polsia/PolsiaApp';
 import { GeneratedImage, Scenario, ScenarioOption, StoryboardItem } from './types';
 import { SCENARIOS, ICON_MAP } from './constants';
 import { fileToGenerativePart, generateMarketingImage } from './services/geminiService';
@@ -24,6 +25,9 @@ const App: React.FC = () => {
   // Storyboard state
   const [storyboardItems, setStoryboardItems] = useState<StoryboardItem[]>([]);
   const [showStoryboard, setShowStoryboard] = useState(false);
+
+  // Polsia-style AI co-founder view
+  const [showPolsia, setShowPolsia] = useState(false);
 
   // Lightbox state
   const [lightboxImage, setLightboxImage] = useState<GeneratedImage | null>(null);
@@ -155,19 +159,24 @@ const App: React.FC = () => {
 
   if (showStoryboard) {
     return (
-      <StoryboardView 
-        items={storyboardItems} 
-        onClose={() => setShowStoryboard(false)} 
+      <StoryboardView
+        items={storyboardItems}
+        onClose={() => setShowStoryboard(false)}
         onRemoveItem={removeFromStoryboard}
       />
     );
   }
 
+  if (showPolsia) {
+    return <PolsiaApp onExit={() => setShowPolsia(false)} />;
+  }
+
   return (
     <div className="min-h-screen bg-zinc-950 text-zinc-100">
-      <Header 
-        storyboardCount={storyboardItems.length} 
-        onOpenStoryboard={() => setShowStoryboard(true)} 
+      <Header
+        storyboardCount={storyboardItems.length}
+        onOpenStoryboard={() => setShowStoryboard(true)}
+        onOpenPolsia={() => setShowPolsia(true)}
       />
 
       <main className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
